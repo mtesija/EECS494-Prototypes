@@ -25,10 +25,12 @@ public class TimeWalkScript : MonoBehaviour
 	
 	//The object that is timetraveling
 	private GameObject parentObject;
+	private MeshRenderer sepiaTone;
 
 	void Start()
 	{
 		parentObject = this.transform.parent.gameObject;
+		sepiaTone = GameObject.Find("sepiaTone").GetComponent<MeshRenderer>();
 		timeline = new List<frameData>();
 	}
 
@@ -39,6 +41,7 @@ public class TimeWalkScript : MonoBehaviour
 			Time.timeScale = 1;
 			parentObject.GetComponent<PlayerScript>().enabled = false;
 			timetraveling = true;
+			sepiaTone.enabled = true;
 		}
 		
 		if(Input.GetKeyUp(KeyCode.LeftShift))
@@ -47,19 +50,26 @@ public class TimeWalkScript : MonoBehaviour
 			Time.timeScale = 1;
 			timeDirection = 0;
 			timetraveling = false;
+			sepiaTone.enabled = false;
 			destroyFuture();
 		}
 		
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
-			Time.timeScale = 1;
-			timeDirection = -1;
+			if(currentTime != 0)
+			{
+				Time.timeScale = 1;
+				timeDirection = -1;
+			}
 		}
 		
 		if(Input.GetKeyDown(KeyCode.E))
 		{
-			Time.timeScale = 1;
-			timeDirection = 1;
+			if(currentTime != timeline.Count - 1)
+			{
+				Time.timeScale = 1;
+				timeDirection = 1;
+			}
 		}
 	}
 

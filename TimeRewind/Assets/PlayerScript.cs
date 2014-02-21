@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour 
 {
-	private float vSpeed = 10;
-	private float hSpeed = 10;
+	private float vSpeed = 6;
+	private float hSpeed = 6;
 	private float jSpeed = 6;
 
 	private float sensitivityX = 1;
@@ -18,23 +18,21 @@ public class PlayerScript : MonoBehaviour
 
 	void Update()
 	{
+		/*
 		if(Input.GetMouseButton(1))
 		{
 			float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
 			
 			transform.eulerAngles = new Vector3(0, rotationX, 0);
 		}
+		*/
 
-		float j = 0;
+		float j = this.rigidbody.velocity.y;
 
 		if(Input.GetKeyDown(KeyCode.Space) && grounded)
 		{
-			j = jSpeed;
+			j += jSpeed;
 			grounded = false;
-		}
-		else
-		{
-			j = this.rigidbody.velocity.y;
 		}
 		
 		float h = Input.GetAxis("Horizontal") * hSpeed;
